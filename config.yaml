@@ -1,0 +1,48 @@
+DATA:
+  data_root:
+
+TRAIN:
+  arch: resnet50
+  sync_bn: False  # adopt sync_bn or not
+  train_h: 512
+  train_w: 512
+  pretrained: True
+  pretrained_path:
+  train_gpu: []
+  workers: 16  # data loader workers
+  batch_size: 48  # batch size for training
+  batch_size_val: 16  # batch size for validation during training, memory and speed tradeoff
+  batch_size_eval: 1
+  base_lr: 0.000001
+  lr_policy: poly # poly or exponential_triangle
+  epochs: 100
+  start_epoch: 0
+  momentum: 0.9
+  save_path: # path to save the model in training
+  weight:  # path to initial weight (default: none)
+  resume:  # path to latest checkpoint (default: none)
+  evaluate: False  # evaluate on validation set, miou or loss
+  weight_decay: 0.0005
+  manual_seed: 0
+  print_freq: 10
+  save_freq: 10
+  BN_requires_grad: False
+  use_iou_loss: True
+
+
+Distributed:
+  dist_url: tcp://127.0.0.1:10001
+  dist_backend: 'nccl'
+  multiprocessing_distributed: True
+  world_size: 1
+  rank: 0
+  use_apex: True
+  opt_level: 'O0'
+  keep_batchnorm_fp32:
+  loss_scale:
+
+TEST:
+  test_gpu: []
+  pred_threshold: 0.5 # threshold of binary classification
+  save_folder:
+  model_path:
