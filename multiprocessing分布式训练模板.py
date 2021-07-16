@@ -150,6 +150,8 @@ def main():
         mp.spawn(main_worker, nprocs=args.ngpus_per_node, args=(args.ngpus_per_node, args))
     else:
         main_worker(args.train_gpu, args.ngpus_per_node, args)
+    # TODO
+    # dist.destroy_process_group()
 
 
 # 区分是多GPU
@@ -276,6 +278,7 @@ def main_worker(gpu, ngpus_per_node, argss):
     for epoch in range(args.start_epoch, args.epochs):
         epoch_log = epoch + 1
         if args.distributed:
+            # TODO # important
             train_sampler.set_epoch(epoch)
 
         train_loss = train(train_loader, model, optimizer, epoch)   # TODO
