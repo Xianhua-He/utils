@@ -7,11 +7,14 @@ from torch.utils.data.distributed import DistributedSampler
 import torch.multiprocessing as mp
 from torch.backends import cudnn
 
+#CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch --master_port 10008 --nproc_per_node=4 train_dist.py \
 
 if speed:
+    # 优化加速，结果值不能完全复现
     cudnn.benchmark = True
     cudnn.deterministic = False
 else:
+    # 结果值完全复现
     cudnn.benchmark = False
     cudnn.deterministic = True
 
